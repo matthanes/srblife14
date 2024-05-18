@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Rock_Salt, Poppins, Roboto, Roboto_Mono } from 'next/font/google';
 import './globals.css';
-import Nav from '@/components/Nav';
+import NewNavbar from '@/components/NewNavbar/NewNavbar';
 
 const poppins = Poppins({
   weight: ['400', '500', '700', '900', '600', '800'],
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Nav />
+        <NewNavbar />
         {children}
       </body>
       {process.env.GOOGLE_ANALYTICS_ID && (
