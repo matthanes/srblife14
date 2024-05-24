@@ -3,7 +3,24 @@
 import { useState, useRef, useEffect } from 'react';
 import imgSrcSet from '../../utils/srcset';
 
-const Slider = ({ slides, timing, children }) => {
+type Slide = {
+  url: string;
+  ariaLabelText: string;
+  title?: string;
+  subtitle?: string;
+  alt?: string;
+  objectPosition?: string;
+  imgLink?: string;
+  opacity: number;
+};
+
+type SliderProps = {
+  slides: Slide[];
+  timing: number;
+  children?: React.ReactNode;
+};
+
+const Slider = ({ slides, timing, children }:SliderProps) => {
   const timerRef = useRef<null | NodeJS.Timeout>(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
