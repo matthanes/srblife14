@@ -262,7 +262,7 @@ export const getAllEvents = async () => {
 
   const data: AllSRBEvents = await events.json();
 
-  return data;
+  return data.data.Events;
 };
 
 export const getAnnouncements = async () => {

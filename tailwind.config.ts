@@ -10,9 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#003D7E', //dark blue
-        secondary: '#7B9EA8', //charcoal
+        primary: '#003D7E',
+        secondary: '#7B9EA8',
         dark: '#2D2D2D',
+      },
+      fontFamily: {
+        'rock-salt': '"Rock Salt", cursive',
+        headings: '"Roboto", sans-serif',
+        bodytext: '"Poppins", sans-serif',
       },
     },
   },

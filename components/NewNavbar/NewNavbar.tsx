@@ -6,6 +6,7 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import Logo from './Logo';
+import { Rock_Salt } from 'next/font/google';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -25,10 +26,13 @@ const navigation = [
   { name: 'Giving', href: '/giving' },
 ];
 
+const rockSalt = Rock_Salt({ weight: ['400'], subsets: ['latin'] });
+
 const NewNavbar: React.FC = () => {
   const pathname = usePathname();
+
   return (
-    <Disclosure as='nav' className='bg-primary h-16'>
+    <Disclosure as='nav' aria-label={'Main'} className='bg-primary h-16'>
       {({ open }) => (
         <>
           <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
@@ -45,7 +49,7 @@ const NewNavbar: React.FC = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className='flex flex-1 items-center justify-center sm:justify-start'>
+              <div className='flex flex-1 items-center justify-center sm:justify-between'>
                 <div className='flex flex-shrink-0 items-center'>
                   <Logo />
                 </div>
@@ -67,13 +71,14 @@ const NewNavbar: React.FC = () => {
                                     item.href === pathname
                                       ? 'bg-gray-700 text-white'
                                       : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    rockSalt.className,
                                   )}
                                 >
                                   {item.name}
                                   <ChevronDownIcon
                                     className={cn(
                                       open ? 'transform rotate-180' : '',
-                                      'ml-2 h-5 w-5',
+                                      'ml-2 h-5 w-5 transition-transform duration-300',
                                     )}
                                     aria-hidden='true'
                                   />
@@ -89,7 +94,10 @@ const NewNavbar: React.FC = () => {
                                       <a
                                         key={sublink.name}
                                         href={sublink.href}
-                                        className='block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white'
+                                        className={cn(
+                                          'block px-4 py-4 text-sm text-gray-300 hover:bg-gray-700 hover:text-white',
+                                          rockSalt.className,
+                                        )}
                                         role='menuitem'
                                       >
                                         {sublink.name}
@@ -111,6 +119,7 @@ const NewNavbar: React.FC = () => {
                               item.href === pathname
                                 ? 'bg-gray-700 text-white'
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              rockSalt.className,
                             )}
                             aria-current={
                               item.href === pathname ? 'page' : undefined
@@ -141,13 +150,14 @@ const NewNavbar: React.FC = () => {
                               item.href === pathname
                                 ? 'bg-gray-700 text-white'
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              rockSalt.className,
                             )}
                           >
                             {item.name}
                             <ChevronDownIcon
                               className={cn(
                                 open ? 'transform rotate-180' : '',
-                                'ml-2 h-5 w-5 inline-block',
+                                'ml-2 h-5 w-5 inline-block transition-transform duration-300',
                               )}
                               aria-hidden='true'
                             />
@@ -158,7 +168,10 @@ const NewNavbar: React.FC = () => {
                                 <a
                                   key={sublink.name}
                                   href={sublink.href}
-                                  className='block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white'
+                                  className={cn(
+                                    'block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    rockSalt.className,
+                                  )}
                                 >
                                   {sublink.name}
                                 </a>
@@ -179,6 +192,7 @@ const NewNavbar: React.FC = () => {
                         item.href === pathname
                           ? 'bg-gray-700 text-white'
                           : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        rockSalt.className,
                       )}
                       aria-current={item.href === pathname ? 'page' : undefined}
                     >

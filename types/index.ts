@@ -64,7 +64,7 @@ export type SRBEvent = {
 
 export type AllSRBEvents = {
   data: {
-    events: SRBEvent[];
+    Events: SRBEvent[];
   };
 };
 
