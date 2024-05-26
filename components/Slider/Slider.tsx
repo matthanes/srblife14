@@ -45,16 +45,7 @@ const Slider = ({ slides, timing, children }: SliderProps) => {
     };
   }, [currentSlide]);
 
-  const {
-    url,
-    ariaLabelText,
-    title,
-    subtitle,
-    alt,
-    objectPosition,
-    imgLink,
-    opacity,
-  } = slides[currentSlide];
+  
 
   return (
     <div className='relative mx-auto aspect-slide max-h-screen-nav'>
@@ -77,15 +68,15 @@ const Slider = ({ slides, timing, children }: SliderProps) => {
       ))}
 
       {/* Overlay */}
-      {url ? (
+      {slides[currentSlide].url ? (
         <a
-          href={url}
-          aria-label={ariaLabelText || ''}
-          className={`absolute left-1/2 top-0 h-full w-[80vw] -translate-x-1/2 bg-black opacity-${opacity}`}
+          href={slides[currentSlide].url || '#'}
+          aria-label={slides[currentSlide].ariaLabelText || ''}
+          className={`absolute left-1/2 top-0 h-full w-[80vw] -translate-x-1/2 bg-black opacity-${slides[currentSlide].opacity}`}
         />
       ) : (
         <div
-          className={`absolute left-0 top-0 h-full w-full bg-black opacity-${opacity}`}
+          className={`absolute left-0 top-0 h-full w-full bg-black opacity-${slides[currentSlide].opacity}`}
         ></div>
       )}
       {children}

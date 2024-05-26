@@ -77,6 +77,7 @@ export type Announcement = {
   status: string;
   link_label?: string;
   slide_link?: string;
+  end_date?: string;
   slide: {
     filename_disk: string;
   };
