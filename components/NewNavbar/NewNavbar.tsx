@@ -83,7 +83,7 @@ const NewNavbar: React.FC = () => {
                                     aria-hidden='true'
                                   />
                                 </Disclosure.Button>
-                                <Disclosure.Panel className='absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-primary ring-1 ring-black ring-opacity-5'>
+                                <Disclosure.Panel className='absolute z-[1] left-0 mt-2 w-48 rounded-md shadow-lg bg-primary ring-1 ring-black ring-opacity-5'>
                                   <div
                                     className='py-1'
                                     role='menu'
@@ -135,7 +135,8 @@ const NewNavbar: React.FC = () => {
               </div>
             </div>
           </div>
-
+          
+          {/* Mobile Nav */}
           <Disclosure.Panel className='sm:hidden absolute top-16 left-0 w-full bg-primary z-50'>
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {navigation.map((item) => {

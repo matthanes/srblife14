@@ -4,14 +4,14 @@ import { useState, useRef, useEffect } from 'react';
 import imgSrcSet from '../../utils/srcset';
 
 type Slide = {
-  url: string;
-  ariaLabelText: string;
-  title?: string;
-  subtitle?: string;
-  alt?: string;
-  objectPosition?: string;
-  imgLink?: string;
-  opacity: number;
+  url?: string | null;
+  ariaLabelText?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  alt?: string | null;
+  objectPosition?: string | null;
+  imgLink?: string | null;
+  opacity: number | null;
 };
 
 type SliderProps = {
@@ -20,7 +20,7 @@ type SliderProps = {
   children?: React.ReactNode;
 };
 
-const Slider = ({ slides, timing, children }:SliderProps) => {
+const Slider = ({ slides, timing, children }: SliderProps) => {
   const timerRef = useRef<null | NodeJS.Timeout>(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -57,21 +57,21 @@ const Slider = ({ slides, timing, children }:SliderProps) => {
   } = slides[currentSlide];
 
   return (
-    <div className="relative min-h-[40vh] sm:min-h-[50vh] md:min-h-[75vh] lg:min-h-screen">
+    <div className='relative mx-auto aspect-slide max-h-screen-nav'>
       {/* Image */}
       {/* map through slides and output ExportedImage Component */}
       {slides.map((slide, index) => (
         <img
-          fetchPriority="high"
-          src={slide.imgLink}
+          fetchPriority='high'
+          src={slide.imgLink || ''}
           key={index}
-          alt={slide.alt}
+          alt={slide.alt || ''}
           className={`absolute inset-0 z-0 h-full w-full object-cover ${
             slide.objectPosition
           } ${
             index === currentSlide ? 'opacity-1' : 'opacity-0'
           } transition-all duration-1000 ease-in-out`}
-          sizes="100vw"
+          sizes='100vw'
           srcSet={imgSrcSet(slide.imgLink)}
         />
       ))}
@@ -80,12 +80,12 @@ const Slider = ({ slides, timing, children }:SliderProps) => {
       {url ? (
         <a
           href={url}
-          aria-label={ariaLabelText}
-          className={`absolute top-0 left-1/2 h-full w-[80vw] -translate-x-1/2 bg-black opacity-${opacity}`}
-        ></a>
+          aria-label={ariaLabelText || ''}
+          className={`absolute left-1/2 top-0 h-full w-[80vw] -translate-x-1/2 bg-black opacity-${opacity}`}
+        />
       ) : (
         <div
-          className={`absolute top-0 left-0 h-full w-full bg-black opacity-${opacity}`}
+          className={`absolute left-0 top-0 h-full w-full bg-black opacity-${opacity}`}
         ></div>
       )}
       {children}
@@ -94,20 +94,20 @@ const Slider = ({ slides, timing, children }:SliderProps) => {
         <>
           {/* Arrows */}
           <button
-            className="z-1 absolute top-1/2 left-4 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:left-8 md:h-16 md:w-16 md:text-3xl"
+            className='z-1 absolute left-4 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:left-8 md:h-16 md:w-16 md:text-3xl'
             onClick={goToLeft}
           >
             ˂
           </button>
           <button
-            className="z-1 absolute top-1/2 right-4 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:right-8 md:h-16 md:w-16 md:text-3xl"
+            className='z-1 absolute right-4 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:right-8 md:h-16 md:w-16 md:text-3xl'
             onClick={goToRight}
           >
             ˃
           </button>
 
           {/* Indicator Dots */}
-          <div className="cover absolute bottom-0 flex w-full justify-center">
+          <div className='cover absolute bottom-0 flex w-full justify-center'>
             {slides.map((slide, index) => (
               <div
                 key={index}

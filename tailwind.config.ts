@@ -19,6 +19,12 @@ const config: Config = {
         headings: '"Roboto", sans-serif',
         bodytext: '"Poppins", sans-serif',
       },
+      aspectRatio: {
+        'slide': '16 / 7',
+      },
+      maxHeight: {
+        'screen-nav': 'calc(100vh - 4rem)',
+      }
     },
   },
   plugins: [typography],

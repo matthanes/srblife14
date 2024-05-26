@@ -72,6 +72,7 @@ export type Announcement = {
   id: string;
   sort?: string;
   title: string;
+  subtitle: string;
   alt_text: string;
   status: string;
   link_label?: string;
@@ -126,3 +127,4 @@ export type AllMinistries = {
     ministries: Ministry[];
   };
 };
+
