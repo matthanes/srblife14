@@ -1,29 +1,33 @@
-import { Author } from '@/types';
-import { directus } from '@/utils/directus';
+import Head from 'next/head';
+import { getAllPublished } from '../../utils/directus';
+import BlogPostList from './components/BlogPostList';
 
-const {authors} = await directus.query<{ authors: Partial<Author>[] }>(`
-  query {
-    authors {
-      name
-      bio
-      profile_pic {
-        filename_disk
-        description
-      }
-    }
-  }
-`);
+let blog_posts = await getAllPublished();
 
-export default function News() {
+export default function BlogPosts() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-        {`Author's Name is ${
-          authors && authors[0]
-            ? authors[0].name
-            : 'No authors found'
-        }`}
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>SRBlog | Schomburg Road Baptist Church Columbus, Georgia</title>
+        <meta
+          name="description"
+          content="Schomburg Road Baptist Church news and information posts."
+        />
+      </Head>
+      <h1 className="container mx-auto mt-4 mb-4 border-b-2 px-8 font-headings text-4xl font-black text-slate-700 sm:px-20">
+        News Posts
+      </h1>
+      <BlogPostList blog_posts={blog_posts} />
+    </>
   );
 }
+
+// export const getStaticProps = async () => {
+//   const data = await getAllPublished();
+
+//   return {
+//     props: {
+//       blog_posts: data.data.blog_posts,
+//     },
+//   };
+// };

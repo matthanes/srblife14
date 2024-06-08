@@ -15,8 +15,6 @@ import { getAnnouncements } from '@/utils/directus';
 
 let announcements = (await getAnnouncements()).data.announcements;
 
-console.log(announcements);
-
 // remove any announcements from the array that have an end date that is in the past
 const now = new Date();
 announcements = announcements.filter((announcement) => {

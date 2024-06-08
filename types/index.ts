@@ -26,7 +26,9 @@ export type AllAuthors = {
 };
 
 export type Tag = {
-  tag_name: string;
+  tags_id: {
+    tag_name: string;
+  };
 };
 
 export type Post = {
@@ -128,4 +130,3 @@ export type AllMinistries = {
     ministries: Ministry[];
   };
 };
-

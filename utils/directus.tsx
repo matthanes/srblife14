@@ -164,7 +164,7 @@ export const getAllPublished = async () => {
   });
 
   const posts: AllPosts = await blog_posts.json();
-  return posts;
+  return posts.data.blog_posts;
 };
 
 // export const getAllTags = async () => {
