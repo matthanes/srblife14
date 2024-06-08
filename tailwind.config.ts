@@ -24,7 +24,10 @@ const config: Config = {
       },
       maxHeight: {
         'screen-nav': 'calc(100vh - 4rem)',
-      }
+      },
+      minHeight: {
+        'screen-nav': 'calc(100vh - 4rem)',
+      },
     },
   },
   plugins: [typography],

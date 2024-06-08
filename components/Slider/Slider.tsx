@@ -21,36 +21,44 @@ type SliderProps = {
 };
 
 const Slider = ({ slides, timing, children }: SliderProps) => {
-  const timerRef = useRef<null | NodeJS.Timeout>(null);
+  const timerRef = useRef<null | number>(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isManualChange, setIsManualChange] = useState(false);
 
   const goToLeft = () => {
+    setIsManualChange(true);
     setCurrentSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
   };
 
   const goToRight = () => {
+    setIsManualChange(true);
     setCurrentSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
   };
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setCurrentSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
-    }, timing);
+    if (isManualChange) {
+      if (timerRef.current !== null) {
+        window.clearInterval(timerRef.current);
+      }
+    } else {
+      timerRef.current = window.setInterval(() => {
+        setCurrentSlide(
+          currentSlide < slides.length - 1 ? currentSlide + 1 : 0,
+        );
+      }, timing);
+    }
 
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
+      if (timerRef.current !== null) {
+        window.clearInterval(timerRef.current);
       }
     };
-  }, [currentSlide]);
-
-  
+  }, [currentSlide, isManualChange]);
 
   return (
-    <div className='relative mx-auto aspect-slide max-h-screen-nav'>
+    <div className='lg:min-h-screen-nav relative min-h-[35vh] sm:min-h-[50vh] md:min-h-[75vh]'>
       {/* Image */}
-      {/* map through slides and output ExportedImage Component */}
       {slides.map((slide, index) => (
         <img
           fetchPriority='high'
@@ -101,11 +109,14 @@ const Slider = ({ slides, timing, children }: SliderProps) => {
           <div className='cover absolute bottom-0 flex w-full justify-center'>
             {slides.map((slide, index) => (
               <div
-                key={index}
+                key={slide.title}
                 className={`m-1 h-3 w-3 cursor-pointer rounded-full lg:m-1 lg:h-4 lg:w-4 ${
                   currentSlide === index ? 'bg-white' : 'bg-gray-400'
                 }`}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => {
+                  setIsManualChange(true);
+                  setCurrentSlide(index);
+                }}
               ></div>
             ))}
           </div>
