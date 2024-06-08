@@ -8,7 +8,7 @@ type AuthorBioProps = {
 };
 
 const AuthorBio: React.FC<AuthorBioProps> = ({author}) => {
-  const profilePic = author.profile_pic !== null ? `https://srblog.srblife.com/assets/${author?.profile_pic?.filename_disk}` : null;
+  const profilePic = author.profile_pic !== null ? `https://srblog.srblife.com/assets/${author?.profile_pic?.filename_disk}?key=375` : null;
   return (
     <section className="mx-auto my-4 max-w-4xl gap-4">
         <div className="rounded-lg bg-gray-100 p-8">

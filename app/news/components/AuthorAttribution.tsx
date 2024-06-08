@@ -19,7 +19,7 @@ const AuthorAttribution: React.FC<AuthorAttributionProps> = ({ author }) => {
             className="rounded-full"
             width={40}
             height={40}
-            src={`https://srblog.srblife.com/assets/${author?.profile_pic?.filename_disk}`}
+            src={`https://srblog.srblife.com/assets/${author?.profile_pic?.filename_disk}?width=80&format=webp`}
             alt={author.bio}
           />
         ) : (
