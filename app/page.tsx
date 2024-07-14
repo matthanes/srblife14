@@ -45,26 +45,13 @@ const slides = announcements
     };
   });
 
-// const {authors} = await directus.query<{ authors: Partial<Author>[] }>(`
-//   query {
-//     authors {
-//       name
-//       bio
-//       profile_pic {
-//         filename_disk
-//         description
-//       }
-//     }
-//   }
-// `);
-
 export default function Home() {
   return (
     <>
       <header className='min-h-1/3 sm:min-h-1/2 md:min-h-3/4 relative lg:min-h-screen-nav'>
         <Slider slides={slides} timing={5000}></Slider>
       </header>
-      <main>
+      <main className='bg-slate-100'>
         <section className='container mx-auto my-8 px-4 md:px-12'>
           <div className='mb-12 flex flex-wrap justify-center gap-3 md:gap-6'>
             <Homecard

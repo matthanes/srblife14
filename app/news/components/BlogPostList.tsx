@@ -44,6 +44,7 @@ const BlogPostList: React.FC<BlogPostListProps> = ({ blog_posts }) => {
         )
     );
     setFilteredPosts(results);
+    setPage(1);
   }, [search]);
 
   useEffect(() => {
