@@ -227,7 +227,8 @@ export const getAllEvents = async () => {
     process.env.NODE_ENV === 'development'
       ? `limit: -1, filter: { _or: [
       { status: { _eq: "published" } },
-      { status: { _eq: "draft" } }
+      { status: { _eq: "draft" } },
+      { status: { _eq: "archived" } }
       ] },
       sort: [ "datetime" ]`
       : `limit: -1, filter: { status: { _eq: "published" } }, sort: [ "datetime" ]`;

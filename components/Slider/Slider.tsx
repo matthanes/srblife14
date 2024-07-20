@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import imgSrcSet from '../../utils/srcset';
+import imgSrcSet from '@/utils/srcset';
 
 type Slide = {
   url?: string | null;
