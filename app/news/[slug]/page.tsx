@@ -5,11 +5,17 @@ import AuthorAttribution from '../components/AuthorAttribution';
 import parse from 'html-react-parser';
 import { getAllPublished, getSinglePost } from '@/utils';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Post } from '@/types';
 
-export const BlogPost: React.FC<Post & { params: {slug: string} }> = async ({ params }) => {
-  const singlePost = await getSinglePost(params.slug);
+type BlogPostProps = {
+  params: {
+    slug: string;
+  };
+};
+
+const BlogPost = async ( props: BlogPostProps ) => {
+  const singlePost = await getSinglePost(props.params.slug);
 
   const {
     title,
