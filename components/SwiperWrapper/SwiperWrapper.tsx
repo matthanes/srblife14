@@ -5,21 +5,27 @@ import { register } from 'swiper/element/bundle';
 import { SwiperProps, SwiperSlideProps } from 'swiper/react';
 import { SwiperOptions } from 'swiper/types';
 
-export const Swiper: React.FC<
+interface SwiperContainerElement extends HTMLElement {
+  initialize: () => void;
+}
+
+interface CustomSwiperProps extends SwiperProps {
+  swiperParams?: SwiperOptions;
+}
+
+export const SwiperWrapper: React.FC<
   React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLElement> & SwiperProps,
+    React.HTMLAttributes<HTMLElement> & CustomSwiperProps,
     HTMLElement
   >
 > = (props) => {
-  const swiperRef = useRef<HTMLLinkElement | any>(null);
-  const { children, ...rest } = props;
+  const swiperRef = useRef<SwiperContainerElement>(null);
+  const { children, swiperParams, ...rest } = props;
 
   useEffect(() => {
-    // Register Swiper web component
     register();
 
-    // pass component props to parameters
-    const params = {
+    const defaultParams: SwiperOptions = {
       breakpoints: {
         375: {
           slidesPerView: 2,
@@ -48,23 +54,26 @@ export const Swiper: React.FC<
           }
           .swiper-button-prev.disabled,
           .swiper-button-next.disabled {
-          color: gray;
-          cursor: not-allowed;
+            color: gray;
+            cursor: not-allowed;
           }
-      `,
+        `,
       ],
-    } as SwiperOptions;
+    };
 
-    // Assign it to swiper element
-    Object.assign(swiperRef.current, params);
+    const params = { ...defaultParams, ...swiperParams };
 
-    // initialize swiper
-    swiperRef.current.initialize();
-  }, []);
+    if (swiperRef.current) {
+      Object.assign(swiperRef.current, params);
+      swiperRef.current.initialize();
+    }
+    
+
+  }, [swiperParams]);
 
   return (
     <>
-      <swiper-container ref={swiperRef} init={false}>
+      <swiper-container ref={swiperRef} init={false} {...rest}>
         {children}
       </swiper-container>
     </>

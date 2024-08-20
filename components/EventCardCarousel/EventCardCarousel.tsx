@@ -2,7 +2,7 @@
 
 import React from 'react';
 import EventCard from './EventCard';
-import { Swiper, SwiperSlide } from '@/components/SwiperWrapper/SwiperWrapper';
+import { SwiperWrapper, SwiperSlide } from '@/components/SwiperWrapper/SwiperWrapper';
 import { SRBEvent } from '@/types';
 
 type EventCardCarouselProps = {
@@ -11,7 +11,7 @@ type EventCardCarouselProps = {
 
 const EventCardCarousel: React.FC<EventCardCarouselProps> = ({ events }) => {
   return (
-    <Swiper>
+    <SwiperWrapper>
       {events.map((event) => {
         return (
           <SwiperSlide className={'flex h-auto justify-center'} key={event.id}>
@@ -19,7 +19,7 @@ const EventCardCarousel: React.FC<EventCardCarouselProps> = ({ events }) => {
           </SwiperSlide>
         );
       })}
-    </Swiper>
+    </SwiperWrapper>
   );
 };
 
