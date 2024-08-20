@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react';
 import { register } from 'swiper/element/bundle';
 import { SwiperProps, SwiperSlideProps } from 'swiper/react';
-import { SwiperOptions } from 'swiper/types';
+import { SwiperOptions, Swiper } from 'swiper/types';
 
-interface SwiperContainerElement extends HTMLElement {
+interface SwiperContainerElement extends HTMLElement, Omit<Swiper, 'translate'> {
   initialize: () => void;
 }
 
@@ -70,6 +70,12 @@ export const SwiperWrapper: React.FC<
     
 
   }, [swiperParams]);
+
+  const handleSwiperNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  }
 
   return (
     <>
