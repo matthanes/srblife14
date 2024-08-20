@@ -22,13 +22,13 @@ export const Swiper: React.FC<
     const params = {
       breakpoints: {
         375: {
-          slidesPerView: 1.5,
+          slidesPerView: 2,
         },
         1280: {
-          slidesPerView: 2.5,
+          slidesPerView: 3,
         },
         1700: {
-          slidesPerView: 3.5,
+          slidesPerView: 4,
         },
       },
       spaceBetween: 25,
@@ -41,14 +41,18 @@ export const Swiper: React.FC<
         enabled: true,
         clickable: true,
       },
-      // injectStyles: [ //Not working
-      //   `:host { --swiper-theme-color: #003d7e;}`,
-      //   `.swiper-button-prev.disabled,
-      //    .swiper-button-next.disabled {
-      //     color: gray;
-      //     cursor: not-allowed;
-      //   }`,
-      // ],
+      injectStyles: [
+        `
+          :host {
+            --swiper-theme-color: #003d7e !important;
+          }
+          .swiper-button-prev.disabled,
+          .swiper-button-next.disabled {
+          color: gray;
+          cursor: not-allowed;
+          }
+      `,
+      ],
     } as SwiperOptions;
 
     // Assign it to swiper element
@@ -60,7 +64,7 @@ export const Swiper: React.FC<
 
   return (
     <>
-      <swiper-container className='mb-12 w-[100vw]' ref={swiperRef}>
+      <swiper-container ref={swiperRef} init={false}>
         {children}
       </swiper-container>
     </>

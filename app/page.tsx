@@ -130,11 +130,13 @@ export default function Home() {
               rel='noopener'
             />
           </div>
+        </section>
+        <section className='p-8'>
           <h2 className='mx-auto mb-6 max-w-lg border-b-2 border-primary py-6 text-center font-bodytext text-4xl font-bold'>
             Upcoming Events
           </h2>
           {events.length > 0 ? (
-            <EventCardCarousel events={events} />
+            <EventCardCarousel events={events.slice(0, 6)} />
           ) : (
             <div className='grid place-content-center p-6 text-xl'>
               No upcoming events were found...
