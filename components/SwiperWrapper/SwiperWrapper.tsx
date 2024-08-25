@@ -27,18 +27,27 @@ export const SwiperWrapper: React.FC<
 
     const defaultParams: SwiperOptions = {
       breakpoints: {
-        375: {
+        320: { // xs
+          slidesPerView: 1,
+        },
+        640: { // sm
           slidesPerView: 2,
         },
-        1280: {
+        768: { //md
+          slidesPerView: 2,
+        },
+        1024: { //lg
           slidesPerView: 3,
         },
-        1700: {
+        1280: { //xl
           slidesPerView: 4,
         },
+        1536: { //2xl
+          slidesPerView: 5,
+        },
       },
-      spaceBetween: 25,
       centeredSlides: true,
+      spaceBetween: 25,
       navigation: {
         enabled: true,
         disabledClass: 'disabled',
