@@ -14,7 +14,7 @@ const EventCardCarousel: React.FC<EventCardCarouselProps> = ({ events }) => {
     <SwiperWrapper>
       {events.map((event) => {
         return (
-          <SwiperSlide className={'flex h-auto justify-center'} key={event.id}>
+          <SwiperSlide key={event.id}>
             <EventCard event={event} />
           </SwiperSlide>
         );

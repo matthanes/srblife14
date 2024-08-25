@@ -26,7 +26,7 @@ const EventCard: React.FC<EventCardProps> = ({event}) => {
   });
 
   return (
-    <div className="mb-8 flex w-full max-w-sm flex-col rounded-lg bg-white text-center shadow-lg">
+    <div className="mb-8 mx-auto flex w-full max-w-sm flex-col rounded-lg bg-white text-center shadow-lg lg:max-w-lg">
       <div className="rounded-t-lg border-b-2 border-secondary border-opacity-50 bg-primary px-6 py-3 text-lg text-white">
         {category}
       </div>

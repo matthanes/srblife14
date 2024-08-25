@@ -41,10 +41,7 @@ export const SwiperWrapper: React.FC<
         },
         1280: { //xl
           slidesPerView: 4,
-        },
-        1536: { //2xl
-          slidesPerView: 5,
-        },
+        }
       },
       centeredSlides: true,
       spaceBetween: 25,
@@ -60,6 +57,7 @@ export const SwiperWrapper: React.FC<
         `
           :host {
             --swiper-theme-color: #003d7e !important;
+            --swiper-pagination-bottom: 0px;
           }
           .swiper-button-prev.disabled,
           .swiper-button-next.disabled {
