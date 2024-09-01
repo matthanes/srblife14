@@ -131,7 +131,7 @@ export default function Home() {
             />
           </div>
         </section>
-        <section className='p-8'>
+        <section>
           <h2 className='mx-auto mb-6 max-w-lg border-b-2 border-primary py-6 text-center font-bodytext text-4xl font-bold'>
             Upcoming Events
           </h2>
