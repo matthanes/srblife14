@@ -1,5 +1,7 @@
 import IconCard from '@/components/IconCard/IconCard';
 import Slider from '@/components/Slider/Slider';
+import SplitScreen from '@/components/SplitScreen/SplitScreen';
+import EventCardCarousel from '@/components/EventCardCarousel/EventCardCarousel';
 import { FaClock, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 import {
@@ -7,10 +9,9 @@ import {
   getAnnouncements,
   getSplitScreens,
 } from '../../utils/directus';
-// import SplitScreen from '../components/SplitScreen';
-import EventCardCarousel from '@/components/EventCardCarousel/EventCardCarousel';
+
 let announcements = (await getAnnouncements()).data.announcements;
-const splitScreens = await getSplitScreens();
+const splitScreens = (await getSplitScreens()).data.split_screens;
 
 let events = (await getAllEvents()).filter((event) => {
   return event.location === 'youth' || event.location === 'homeyouth';
@@ -88,19 +89,19 @@ export default function Youth() {
         </div>
       </div>
 
-      {/* {splitScreens.map((splitScreen) => (
+      {splitScreens.map((splitScreen) => (
         <SplitScreen
           key={splitScreen.id}
           img={
             'https://srblog.srblife.com/assets/' +
             splitScreen.image.filename_disk
           }
-          alt={splitScreen.image.alt}
+          alt={splitScreen.alt}
           title={splitScreen.title}
           body={splitScreen.body}
           reverse={splitScreen.reverse}
         />
-      ))} */}
+      ))}
 
       <h2 className="mx-auto mb-6 max-w-lg border-b-2 border-primary py-6 text-center font-bodytext text-4xl font-bold">
         Upcoming Events
