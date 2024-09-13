@@ -22,7 +22,9 @@ export type Author = {
 };
 
 export type AllAuthors = {
-  authors: Author[];
+  data: {
+    authors: Author[];
+  }
 };
 
 export type Tag = {

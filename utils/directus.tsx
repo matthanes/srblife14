@@ -14,15 +14,16 @@ import {
   Tag,
 } from '@/types';
 
-
-export const directus = createDirectus<DirectusSchema>('https://srblog.srblife.com/')
-.with(authentication())
-.with(
-  graphql({
-    //@ts-expect-error
-    onRequest: (options) => ({ ...options, cache: 'no-store' }),
-  })
-);
+export const directus = createDirectus<DirectusSchema>(
+  'https://srblog.srblife.com/',
+)
+  .with(authentication())
+  .with(
+    graphql({
+      //@ts-expect-error
+      onRequest: (options) => ({ ...options, cache: 'no-store' }),
+    }),
+  );
 
 process.env.DIRECTUS_TOKEN && directus.setToken(process.env.DIRECTUS_TOKEN);
 
@@ -167,32 +168,31 @@ export const getAllPublished = async () => {
   return posts.data.blog_posts;
 };
 
-// export const getAllTags = async () => {
-//   const tags = await fetch('https://srblog.srblife.com/graphql', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: 'Bearer ' + process.env.DIRECTUS_TOKEN,
-//     },
-//     body: JSON.stringify({
-//       query: `
-//           query {
-//             tags {
-//               tag_name
-//           }
-//         }
-//         `,
-//     }),
-//   });
+export const getAllTags = async () => {
+  const tagsData = await fetch('https://srblog.srblife.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + process.env.DIRECTUS_TOKEN,
+    },
+    body: JSON.stringify({
+      query: `
+          query {
+            tags {
+              tag_name
+          }
+        }
+        `,
+    }),
+  });
 
-//   const data = await tags.json();
-//   const tagList: Tag[] = [];
-//   data.data.tags.forEach((tag) => {
-//     tagList.push(tag.tag_name);
-//   });
+  const data = await tagsData.json();
+  const tags: {
+    tag_name: string;
+  }[] = data.data.tags;
 
-//   return tagList;
-// };
+  return tags;
+};
 
 export const getAllAuthors = async () => {
   const authors = await fetch('https://srblog.srblife.com/graphql', {
@@ -219,7 +219,7 @@ export const getAllAuthors = async () => {
 
   const data: AllAuthors = await authors.json();
 
-  return data;
+  return data.data.authors;
 };
 
 export const getAllEvents = async () => {
