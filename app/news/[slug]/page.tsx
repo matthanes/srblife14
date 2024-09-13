@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import TagsList from '../components/TagsList';
 import SocialShare from '../components/SocialShare';
 import AuthorAttribution from '../components/AuthorAttribution';
@@ -10,6 +9,8 @@ type BlogPostProps = {
     slug: string;
   };
 };
+
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: BlogPostProps) {
   const singlePost = await getSinglePost(params.slug);
