@@ -87,7 +87,7 @@ const Calendar = () => {
         />
       </div>
     ),
-    [],
+    [isMobile, view],
   );
 
   return (

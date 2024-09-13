@@ -54,7 +54,7 @@ const Slider = ({ slides, timing, children }: SliderProps) => {
         window.clearInterval(timerRef.current);
       }
     };
-  }, [currentSlide, isManualChange]);
+  }, [currentSlide, isManualChange, slides, timing]);
 
   return (
     <div className='lg:min-h-screen-nav relative min-h-[35vh] sm:min-h-[50vh] md:min-h-[75vh]'>

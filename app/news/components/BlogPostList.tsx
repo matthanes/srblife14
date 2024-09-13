@@ -52,7 +52,7 @@ const BlogPostList: React.FC<BlogPostListProps> = ({ blog_posts }) => {
     );
     setFilteredPosts(results);
     setPage(1);
-  }, [search]);
+  }, [search, blog_posts]);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredPosts.length / numPostsPerPage);
