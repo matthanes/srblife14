@@ -8,6 +8,8 @@ type AuthorAttributionProps = {
 }
 
 const AuthorAttribution: React.FC<AuthorAttributionProps> = ({ author }) => {
+  author.bio = author.bio?.replace(/<p>/g, '');
+  author.bio = author.bio?.replace(/<\/p>/g, '');
   return (
     <div className="not-prose flex items-center">
       <Link

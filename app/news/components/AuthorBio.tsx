@@ -8,6 +8,8 @@ type AuthorBioProps = {
 };
 
 const AuthorBio: React.FC<AuthorBioProps> = ({author}) => {
+  author.bio = author.bio?.replace(/<p>/g, '');
+  author.bio = author.bio?.replace(/<\/p>/g, '');
   const profilePic = author.profile_pic !== null ? `https://srblog.srblife.com/assets/${author?.profile_pic?.filename_disk}?key=375` : null;
   return (
     <section className="mx-auto my-4 max-w-4xl gap-4">
