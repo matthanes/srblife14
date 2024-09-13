@@ -15,6 +15,7 @@ export type DirectusFile = {
 export type Author = {
   name: string;
   bio?: string;
+  date_updated: string;
   profile_pic?: {
     filename_disk: string;
     description: string;

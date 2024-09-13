@@ -180,6 +180,7 @@ export const getAllTags = async () => {
           query {
             tags {
               tag_name
+              date_updated
           }
         }
         `,
@@ -189,6 +190,7 @@ export const getAllTags = async () => {
   const data = await tagsData.json();
   const tags: {
     tag_name: string;
+    date_updated: string;
   }[] = data.data.tags;
 
   return tags;
@@ -207,6 +209,7 @@ export const getAllAuthors = async () => {
             authors {
               name
               bio
+              date_updated
               profile_pic {
                 filename_disk
                 description
