@@ -28,6 +28,10 @@ const config: Config = {
       minHeight: {
         'screen-nav': 'calc(100vh - 4rem)',
       },
+      backgroundImage: {
+        map: "url('../public/img/missions.jpg')",
+        church: "url('../public/img/church.jpg')",
+      },
     },
   },
   plugins: [typography],
