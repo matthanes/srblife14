@@ -35,9 +35,9 @@ const NewNavbar: React.FC = () => {
     <Disclosure as='nav' aria-label={'Main'} className='bg-primary h-16'>
       {({ open }) => (
         <>
-          <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+          <div className='mx-auto max-w-7xl px-2 md:sm:px-6 lg:px-8'>
             <div className='relative flex h-16 items-center justify-between'>
-              <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
+              <div className='absolute inset-y-0 left-0 flex items-center md:hidden'>
                 {/* Mobile menu button*/}
                 <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                   <span className='absolute -inset-0.5' />
@@ -49,11 +49,11 @@ const NewNavbar: React.FC = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className='flex flex-1 items-center justify-center sm:justify-between'>
+              <div className='flex flex-1 items-center justify-center md:justify-between'>
                 <div className='flex flex-shrink-0 items-center'>
                   <Logo />
                 </div>
-                <div className='hidden sm:ml-6 sm:block'>
+                <div className='hidden md:ml-6 md:block'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => {
                       if (item.sublinks) {
@@ -137,7 +137,7 @@ const NewNavbar: React.FC = () => {
           </div>
           
           {/* Mobile Nav */}
-          <Disclosure.Panel className='sm:hidden absolute top-16 left-0 w-full bg-primary z-50'>
+          <Disclosure.Panel className='md:hidden absolute top-16 left-0 w-full bg-primary z-50'>
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {navigation.map((item) => {
                 if (item.sublinks) {
