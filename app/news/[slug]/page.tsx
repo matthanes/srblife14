@@ -102,22 +102,4 @@ export const generateStaticParams = async () => {
   }));
 };
 
-// export const getStaticProps = async ({ params }) => {
-//   const singlePost = await getSinglePost(params.slug);
-
-//   return {
-//     props: singlePost,
-//   };
-// };
-
-// export const getStaticPaths = async () => {
-//   const data = await getAllPublished();
-//   const paths = data.data.blog_posts.map(({ slug }) => ({ params: { slug } }));
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
 export default BlogPost;

@@ -1,0 +1,7 @@
+.fc-h-event .fc-event-main-frame {
+  flex-direction: column;
+}
+
+.fc-h-event .fc-event-title-container {
+  text-wrap: balance;
+}

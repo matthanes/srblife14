@@ -21,13 +21,3 @@ export default function BlogPosts() {
     </>
   );
 }
-
-// export const getStaticProps = async () => {
-//   const data = await getAllPublished();
-
-//   return {
-//     props: {
-//       blog_posts: data.data.blog_posts,
-//     },
-//   };
-// };
