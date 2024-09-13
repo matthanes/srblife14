@@ -8,6 +8,13 @@ type TagProps = {
   };
 };
 
+export async function generateMetadata({ params }: TagProps) {
+  return {
+    title: `News Posts By Tag - ${titleCase(params.tag)} | Schomburg Road Baptist Church Columbus, Georgia`,
+    description: `News Posts By Tag - ${titleCase(params.tag)}`,
+  };
+}
+
 const Author = async (props: TagProps) => {
   const tag_slug = props.params.tag;
   const posts = await getAllPublished();

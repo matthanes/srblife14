@@ -5,26 +5,55 @@ import AuthorAttribution from '../components/AuthorAttribution';
 import parse from 'html-react-parser';
 import { getAllPublished, getSinglePost } from '@/utils';
 
-import React, { FC } from 'react';
-import { Post } from '@/types';
-
 type BlogPostProps = {
   params: {
     slug: string;
   };
 };
 
-const BlogPost = async ( props: BlogPostProps ) => {
+export async function generateMetadata({ params }: BlogPostProps) {
+  const singlePost = await getSinglePost(params.slug);
+
+  return {
+    title: `${singlePost.title} | Schomburg Road Baptist Church Columbus, Georgia`,
+    description: singlePost.description,
+    keywords: singlePost.tags.map((tag) => tag.tags_id.tag_name).join(', '),
+    authors: { name: singlePost.author.name },
+    openGraph: {
+      title: `${singlePost.title} | Schomburg Road Baptist Church Columbus, Georgia`,
+      description: singlePost.description,
+      type: 'article',
+      publishedTime: singlePost.publish_date,
+      authors: [singlePost.author.name],
+      images: singlePost.social_media_image
+        ? [
+            {
+              url: `https://srblog.srblife.com/assets/${singlePost.social_media_image.filename_disk}`,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      title: `${singlePost.title} | Schomburg Road Baptist Church Columbus, Georgia`,
+      description: singlePost.description,
+      card: 'summary_large_image',
+      images: singlePost.social_media_image
+        ? `https://srblog.srblife.com/assets/${singlePost.social_media_image.filename_disk}`
+        : undefined,
+      creator: '@SRBLife',
+    },
+  };
+}
+
+const BlogPost = async (props: BlogPostProps) => {
   const singlePost = await getSinglePost(props.params.slug);
 
   const {
     title,
-    description,
     publish_date,
     author,
     post,
     tags,
-    social_media_image,
   } = singlePost;
 
   const formattedDate = new Date(publish_date).toLocaleDateString('en-US', {
@@ -32,38 +61,6 @@ const BlogPost = async ( props: BlogPostProps ) => {
     month: 'long',
     year: 'numeric',
   });
-
-  const tagsList = tags.map((tag) => tag.tags_id.tag_name).join(', ');
-
-  const metadata: Metadata = {
-    title: `${title} | Schomburg Road Baptist Church Columbus, Georgia`,
-    description,
-    keywords: tagsList,
-    authors: { name: author.name },
-    openGraph: {
-      title: `${title} | Schomburg Road Baptist Church Columbus, Georgia`,
-      description,
-      type: 'article',
-      publishedTime: publish_date,
-      authors: [author.name],
-      images: social_media_image
-        ? [
-            {
-              url: `https://srblog.srblife.com/assets/${social_media_image.filename_disk}`,
-            },
-          ]
-        : undefined,
-    },
-    twitter: {
-      title: `${title} | Schomburg Road Baptist Church Columbus, Georgia`,
-      description,
-      card: 'summary_large_image',
-      images: social_media_image
-        ? `https://srblog.srblife.com/assets/${social_media_image.filename_disk}`
-        : undefined,
-      creator: '@SRBLife',
-    },
-  };
 
   return (
     <div className='bg-slate-100'>
