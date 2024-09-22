@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import cn from 'classnames';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -32,7 +33,7 @@ const NewNavbar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <Disclosure as='nav' aria-label={'Main'} className='bg-primary h-16'>
+    <Disclosure as='nav' aria-label={'Main'} className='h-16 bg-primary'>
       {({ open }) => (
         <>
           <div className='mx-auto max-w-7xl px-2 md:sm:px-6 lg:px-8'>
@@ -67,42 +68,59 @@ const NewNavbar: React.FC = () => {
                               <>
                                 <Disclosure.Button
                                   className={cn(
-                                    'rounded-md px-3 py-2 text-sm font-medium inline-flex items-center',
-                                    item.href === pathname
-                                      ? 'bg-gray-700 text-white'
-                                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                    'inline-flex items-center px-3 py-2 text-sm font-medium  text-white shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300',
+                                    open ||
+                                      item.sublinks.some(
+                                        (sublink) =>
+                                          sublink.href.replace(/\/$/, '') ===
+                                          pathname.replace(/\/$/, ''),
+                                      ) // If it is open or if any of the sublinks are the current page
+                                      ? 'shadow-[0_2px_0_0_rgba(255,255,255,1)]'
+                                      : 'hover:shadow-[0_2px_0_0_rgba(255,255,255,1)]',
                                     rockSalt.className,
                                   )}
                                 >
                                   {item.name}
                                   <ChevronDownIcon
                                     className={cn(
-                                      open ? 'transform rotate-180' : '',
+                                      open ? 'rotate-180 transform' : '',
                                       'ml-2 h-5 w-5 transition-transform duration-300',
                                     )}
                                     aria-hidden='true'
                                   />
                                 </Disclosure.Button>
-                                <Disclosure.Panel className='absolute z-[1] left-0 mt-2 w-48 rounded-md shadow-lg bg-primary ring-1 ring-black ring-opacity-5'>
+                                <Disclosure.Panel className='absolute left-0 z-[1] mt-2 w-56 rounded-md bg-primary shadow-lg ring-1 ring-black ring-opacity-5'>
                                   <div
-                                    className='py-1'
+                                    className='flex flex-col gap-4 px-4 py-1'
                                     role='menu'
                                     aria-orientation='vertical'
                                     aria-labelledby='options-menu'
                                   >
-                                    {item.sublinks.map((sublink) => (
-                                      <a
-                                        key={sublink.name}
-                                        href={sublink.href}
-                                        className={cn(
-                                          'block px-4 py-4 text-sm text-gray-300 hover:bg-gray-700 hover:text-white',
-                                          rockSalt.className,
-                                        )}
-                                        role='menuitem'
-                                      >
-                                        {sublink.name}
-                                      </a>
-                                    ))}
+                                    {item.sublinks.map((sublink) => {
+                                      return (
+                                        <Link
+                                          key={sublink.name}
+                                          href={sublink.href}
+                                          className={cn(
+                                            'py-2 text-sm text-gray-300 shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300 hover:text-white',
+                                            sublink.href.replace(/\/$/, '') ===
+                                              pathname.replace(/\/$/, '')
+                                              ? 'shadow-[0_2px_0_0_rgba(255,255,255,1)]'
+                                              : 'hover:shadow-[0_2px_0_0_rgba(255,255,255,1)]',
+                                            rockSalt.className,
+                                          )}
+                                          role='menuitem'
+                                          aria-current={
+                                            sublink.href.replace(/\/$/, '') ===
+                                            pathname.replace(/\/$/, '')
+                                              ? 'page'
+                                              : undefined
+                                          }
+                                        >
+                                          {sublink.name}
+                                        </Link>
+                                      );
+                                    })}
                                   </div>
                                 </Disclosure.Panel>
                               </>
@@ -111,7 +129,7 @@ const NewNavbar: React.FC = () => {
                         );
                       } else {
                         return (
-                          <a
+                          <Link
                             key={item.name}
                             href={item.href || '#'}
                             className={cn(
@@ -126,7 +144,7 @@ const NewNavbar: React.FC = () => {
                             }
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         );
                       }
                     })}
@@ -135,10 +153,10 @@ const NewNavbar: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Mobile Nav */}
-          <Disclosure.Panel className='md:hidden absolute top-16 left-0 w-full bg-primary z-50'>
-            <div className='px-2 pt-2 pb-3 space-y-1'>
+          <Disclosure.Panel className='absolute left-0 top-16 z-50 w-full bg-primary md:hidden'>
+            <div className='space-y-1 px-2 pb-3 pt-2'>
               {navigation.map((item) => {
                 if (item.sublinks) {
                   return (
@@ -147,7 +165,7 @@ const NewNavbar: React.FC = () => {
                         <>
                           <Disclosure.Button
                             className={cn(
-                              'block rounded-md px-3 py-2 text-base font-medium w-full text-left',
+                              'block w-full rounded-md px-3 py-2 text-left text-base font-medium',
                               item.href === pathname
                                 ? 'bg-gray-700 text-white'
                                 : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -157,16 +175,16 @@ const NewNavbar: React.FC = () => {
                             {item.name}
                             <ChevronDownIcon
                               className={cn(
-                                open ? 'transform rotate-180' : '',
-                                'ml-2 h-5 w-5 inline-block transition-transform duration-300',
+                                open ? 'rotate-180 transform' : '',
+                                'ml-2 inline-block h-5 w-5 transition-transform duration-300',
                               )}
                               aria-hidden='true'
                             />
                           </Disclosure.Button>
                           <Disclosure.Panel>
-                            <div className='px-2 pt-2 pb-3 space-y-1'>
+                            <div className='space-y-1 px-2 pb-3 pt-2'>
                               {item.sublinks.map((sublink) => (
-                                <a
+                                <Link
                                   key={sublink.name}
                                   href={sublink.href}
                                   className={cn(
@@ -175,7 +193,7 @@ const NewNavbar: React.FC = () => {
                                   )}
                                 >
                                   {sublink.name}
-                                </a>
+                                </Link>
                               ))}
                             </div>
                           </Disclosure.Panel>
@@ -185,7 +203,7 @@ const NewNavbar: React.FC = () => {
                   );
                 } else {
                   return (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href || '#'}
                       className={cn(
@@ -198,7 +216,7 @@ const NewNavbar: React.FC = () => {
                       aria-current={item.href === pathname ? 'page' : undefined}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   );
                 }
               })}
