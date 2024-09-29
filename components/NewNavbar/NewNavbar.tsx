@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -37,6 +38,7 @@ const navigation: navigationItem[] = [
 const rockSalt = Rock_Salt({ weight: ['400'], subsets: ['latin'] });
 
 const NewNavbar: React.FC = () => {
+  const [openMobileNav, setOpenMobileNav] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -47,7 +49,12 @@ const NewNavbar: React.FC = () => {
             <div className='relative flex h-16 items-center justify-between'>
               <div className='absolute inset-y-0 left-0 flex items-center md:hidden'>
                 {/* Mobile menu button*/}
-                <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                <Disclosure.Button
+                  onClick={() =>
+                    setOpenMobileNav((openMobileNav) => !openMobileNav)
+                  }
+                  className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+                >
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
                   {open ? (
@@ -183,8 +190,17 @@ const NewNavbar: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <MobileNav navigation={navigation} pathname={pathname} />
+          <Transition
+            show={openMobileNav}
+            enter='transition-opacity duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='transition-opacity duration-300'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <MobileNav navigation={navigation} pathname={pathname} />
+          </Transition>
         </>
       )}
     </Disclosure>

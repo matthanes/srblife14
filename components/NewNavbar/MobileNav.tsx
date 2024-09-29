@@ -15,18 +15,22 @@ const rockSalt = Rock_Salt({ weight: ['400'], subsets: ['latin'] });
 
 const MobileNav: React.FC<MobileNavProps> = ({ navigation, pathname }) => {
   return (
-    <Disclosure.Panel className='absolute left-0 top-16 z-50 w-full h-screen bg-primary md:hidden'>
+    <Disclosure.Panel className='absolute left-0 top-16 z-50 h-screen w-full bg-primary md:hidden'>
       {({ close }) => (
         <div className='flex flex-col items-center space-y-1 px-2 pb-3 pt-2'>
           {navigation.map((item) => {
             if (item.sublinks) {
               return (
-                <Disclosure as='div' key={item.name} className='space-y-1'>
+                <Disclosure
+                  as='div'
+                  key={item.name}
+                  className='space-y-1 text-center'
+                >
                   {({ open }) => (
                     <>
                       <Disclosure.Button
                         className={cn(
-                          'w-fit px-3 py-2 text-left text-base font-medium text-gray-300 shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300',
+                          'w-fit px-3 py-2 text-xl font-medium text-gray-300 shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300',
                           item.href === pathname
                             ? 'shadow-[0_2px_0_0_rgba(255,255,255,1)]'
                             : 'hover:shadow-[0_2px_0_0_rgba(255,255,255,1)]',
@@ -50,7 +54,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, pathname }) => {
                                 key={sublink.name}
                                 href={sublink.href}
                                 className={cn(
-                                  'w-fit px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
+                                  'w-fit px-3 py-2 text-xl font-medium text-gray-300 hover:bg-gray-700 hover:text-white',
                                   rockSalt.className,
                                 )}
                                 onClick={() => close()}
@@ -70,7 +74,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, pathname }) => {
                   key={item.name}
                   href={item.href || '#'}
                   className={cn(
-                    'w-fit px-3 py-2 text-base font-medium text-gray-300 shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300',
+                    'w-fit px-3 py-2 text-xl font-medium text-gray-300 shadow-[0_0_0_0_rgba(255,255,255,0)] transition-all duration-300',
                     item?.href?.replace(/\/$/, '') ===
                       pathname.replace(/\/$/, '')
                       ? 'shadow-[0_2px_0_0_rgba(255,255,255,1)]'
