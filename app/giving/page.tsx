@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Giving() {
   return (
     <div className="bg-primary">
-      <div className="min-h-screen-foot">
+      <div className="min-h-screen-nav">
         <div className="text-4xl md:text-6xl bg-primary text-white text-center font-headings lg:px-32 md:px-12 py-8 lg:py-20 px-4 flex flex-wrap justify-center">
           <div className="text-4xl md:text-6xl inline-flex items-center px-1.5 md:px-3 py-2 md:py-0.5 border-2 border-white rounded-full font-semibold leading-4 bg-white text-primary">
             3
