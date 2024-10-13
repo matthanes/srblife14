@@ -252,6 +252,7 @@ export const getAllEvents = async () => {
               status
               category
               datetime
+              datetimeend
               short_description
               event_location
               button_link

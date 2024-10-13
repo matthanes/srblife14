@@ -5,7 +5,7 @@ type IconCardProps = {
   subtitle: string;
   icon: React.ReactNode;
   target: string;
-  href: string;
+  href?: string;
   rel?: string;
 };
 
@@ -17,21 +17,27 @@ const IconCard = ({
   rel,
   href,
 }: IconCardProps) => {
-  return (
+  const content = (
+    <article className='overflow-hidden rounded-lg bg-primary py-8 text-white shadow-lg hover:bg-secondary'>
+      {icon}
+      <div className='py-5'>
+        <div className='mb-2 py-2 text-2xl font-bold'>{title}</div>
+        <p className='text-lg'>{subtitle}</p>
+      </div>
+    </article>
+  );
+
+  return href ? (
     <Link
       href={href}
       target={target}
       rel={rel}
-      className='cursor-pointer w-full max-w-xl lg:max-w-md text-center'
+      className='w-full max-w-xl cursor-pointer text-center lg:max-w-md'
     >
-      <article className='py-8 overflow-hidden rounded-lg shadow-lg hover:bg-secondary bg-primary text-white'>
-        {icon}
-        <div className='py-5'>
-          <div className='py-2 font-bold text-2xl mb-2'>{title}</div>
-          <p className='text-lg'>{subtitle}</p>
-        </div>
-      </article>
+      {content}
     </Link>
+  ) : (
+    <div className='w-full max-w-xl text-center lg:max-w-md'>{content}</div>
   );
 };
 

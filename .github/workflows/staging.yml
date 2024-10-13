@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches: [staging]
+
+  repository_dispatch:
+    types: [directus.deploy.staging]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+      - run: |
+          touch .env.local
+          echo NEXT_PUBLIC_GOOGLE_CALENDAR_API_KEY=staging_site >> .env.local
+          echo NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=staging_site >> .env.local
+          echo DIRECTUS_TOKEN=${{secrets.DIRECTUS_TOKEN}} >> .env.local
+          npm run build
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: aws s3 sync ./out s3://staging.srblife.com

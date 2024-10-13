@@ -52,7 +52,6 @@ export default function Youth() {
             subtitle='9:15 AM'
             icon={<FaClock className='mx-auto block' size='100' />}
             target='_self'
-            href='#'
           />
 
           <IconCard
@@ -60,7 +59,6 @@ export default function Youth() {
             subtitle='6:00 PM'
             icon={<FaClock className='mx-auto block' size='100' />}
             target='_self'
-            href='#'
           />
 
           <IconCard
@@ -68,7 +66,6 @@ export default function Youth() {
             subtitle='6:30 PM'
             icon={<FaClock className='mx-auto block' size='100' />}
             target='_self'
-            href='#'
           />
 
           <IconCard
