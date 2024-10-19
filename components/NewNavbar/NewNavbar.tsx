@@ -199,7 +199,7 @@ const NewNavbar: React.FC = () => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <MobileNav navigation={navigation} pathname={pathname} />
+            <MobileNav navigation={navigation} pathname={pathname} setOpenMobileNav={setOpenMobileNav} />
           </Transition>
         </>
       )}
