@@ -126,7 +126,7 @@ export default function Home() {
               subtitle='Sermons'
               icon={<FaYoutube className='mx-auto block' size='100' />}
               target='_blank'
-              href='https://www.youtube.com/channel/UCSaSFpr8E-PMYfi1QoqwVuw/'
+              href='https://www.youtube.com/@srblifecolumbusga2012/streams'
               rel='noopener'
             />
           </div>
