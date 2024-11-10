@@ -25,7 +25,7 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
         </div>
         <div className='mt-3 flex flex-col items-center sm:block'>
           <Link
-            className='text-xl font-bold text-primary focus-within:outline-none focus-within:ring focus-within:ring-primary hover:underline'
+            className='text-xl font-bold text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary'
             href={`/news/${slug}`}
           >
             {title}
@@ -36,7 +36,7 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
         </div>
         <div className='mx-auto mt-4 flex flex-col items-center sm:flex-row sm:items-center sm:justify-between'>
           <Link
-            className='mb-4 font-semibold text-primary focus-within:outline-none focus-within:ring focus-within:ring-primary hover:underline'
+            className='mb-4 font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary'
             href={`/news/${slug}`}
           >
             Read More

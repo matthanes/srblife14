@@ -86,8 +86,10 @@ export const SwiperWrapper: React.FC<
 
   return (
     <>
+      {/* @ts-ignore */}
       <swiper-container ref={swiperRef} init={false} {...rest}>
         {children}
+      {/* @ts-ignore */}
       </swiper-container>
     </>
   );
@@ -100,6 +102,6 @@ export const SwiperSlide: React.FC<
   >
 > = (props) => {
   const { children, ...rest } = props;
-
+  {/* @ts-ignore */}
   return <swiper-slide {...rest}>{children}</swiper-slide>;
 };
