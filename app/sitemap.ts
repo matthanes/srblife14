@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getAllAuthors, getAllPublished, getAllTags } from '@/utils';
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blog_posts = await getAllPublished();
   const authors = await getAllAuthors();
