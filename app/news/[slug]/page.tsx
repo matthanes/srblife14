@@ -5,14 +5,15 @@ import parse from 'html-react-parser';
 import { getAllPublished, getSinglePost } from '@/utils';
 
 type BlogPostProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export const revalidate = 300;
 
-export async function generateMetadata({ params }: BlogPostProps) {
+export async function generateMetadata(props: BlogPostProps) {
+  const params = await props.params;
   const singlePost = await getSinglePost(params.slug);
 
   return {
@@ -47,15 +48,9 @@ export async function generateMetadata({ params }: BlogPostProps) {
 }
 
 const BlogPost = async (props: BlogPostProps) => {
-  const singlePost = await getSinglePost(props.params.slug);
+  const singlePost = await getSinglePost((await props.params).slug);
 
-  const {
-    title,
-    publish_date,
-    author,
-    post,
-    tags,
-  } = singlePost;
+  const { title, publish_date, author, post, tags } = singlePost;
 
   const formattedDate = new Date(publish_date).toLocaleDateString('en-US', {
     day: 'numeric',

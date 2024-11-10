@@ -3,12 +3,13 @@ import BlogPostList from '../../components/BlogPostList';
 import titleCase, { getAllTags, getAllPublished} from '@/utils';
 
 type TagProps = {
-  params: {
+  params: Promise<{
     tag: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({ params }: TagProps) {
+export async function generateMetadata(props: TagProps) {
+  const params = await props.params;
   return {
     title: `News Posts By Tag - ${titleCase(params.tag)} | Schomburg Road Baptist Church Columbus, Georgia`,
     description: `News Posts By Tag - ${titleCase(params.tag)}`,
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: TagProps) {
 }
 
 const Author = async (props: TagProps) => {
-  const tag_slug = props.params.tag;
+  const tag_slug = (await props.params).tag;
   const posts = await getAllPublished();
   const postsByTag = posts.filter((post) => {
     return post.tags.some(

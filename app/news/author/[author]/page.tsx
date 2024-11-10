@@ -4,12 +4,13 @@ import BlogPostList from '../../components/BlogPostList';
 import { getAllAuthors, getAllPublished } from '@/utils';
 
 type AuthorProps = {
-  params: {
+  params: Promise<{
     author: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({ params }: AuthorProps) {
+export async function generateMetadata(props: AuthorProps) {
+  const params = await props.params;
   const authors = await getAllAuthors();
   const author = authors.filter((author) => {
     return author.name.toLowerCase().replace(/\s+/g, '_') === params.author;
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: AuthorProps) {
 }
 
 const Author = async (props: AuthorProps) => {
-  const author_slug = props.params.author;
+  const author_slug = (await props.params).author;
   const posts = await getAllPublished();
   const authors = await getAllAuthors();
   const postsByAuthor = posts.filter((post) => {
