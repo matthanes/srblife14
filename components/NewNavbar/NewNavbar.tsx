@@ -53,7 +53,7 @@ const NewNavbar: React.FC = () => {
                   onClick={() =>
                     setOpenMobileNav((openMobileNav) => !openMobileNav)
                   }
-                  className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+                  className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-inset focus-within:ring-white hover:text-white'
                 >
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
@@ -199,7 +199,11 @@ const NewNavbar: React.FC = () => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <MobileNav navigation={navigation} pathname={pathname} setOpenMobileNav={setOpenMobileNav} />
+            <MobileNav
+              navigation={navigation}
+              pathname={pathname}
+              setOpenMobileNav={setOpenMobileNav}
+            />
           </Transition>
         </>
       )}

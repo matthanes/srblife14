@@ -39,10 +39,10 @@ export default function OurPurpose() {
         <p className='px-6 text-2xl leading-10 lg:text-3xl lg:leading-[3rem]'>
           11 Now these are the gifts Christ gave to the church: the apostles,
           the prophets, the evangelists, and the pastors and teachers. 12 Their
-          responsibility is to equip God&apos;s people to do his work and build up
-          the church, the body of Christ. 13 This will continue until we all
-          come to such unity in our faith and knowledge of God&apos;s Son that we
-          will be mature in the Lord, measuring up to the full and complete
+          responsibility is to equip God&apos;s people to do his work and build
+          up the church, the body of Christ. 13 This will continue until we all
+          come to such unity in our faith and knowledge of God&apos;s Son that
+          we will be mature in the Lord, measuring up to the full and complete
           standard of Christ.
         </p>
         <p className='pt-6 text-xl'>Ephesians 4:11-13 NLT</p>
@@ -59,7 +59,7 @@ export default function OurPurpose() {
           body={`
             <h3 class="mb-6 text-xl leading-8">
               Ministry Leader: ${ministry.leader} <br />
-              Contact: <a class="mb-4 text-primary hover:underline focus:outline-none focus:ring focus:ring-primary" href="mailto:${ministry.leader_email}">
+              Contact: <a class="mb-4 text-primary hover:underline focus-within:outline-none focus-within:ring focus-within:ring-primary" href="mailto:${ministry.leader_email}">
                 ${ministry.leader_email}
               </a>
             </h3>
