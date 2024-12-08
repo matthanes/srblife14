@@ -53,19 +53,6 @@ export const SwiperWrapper: React.FC<
         enabled: true,
         clickable: true,
       },
-      injectStyles: [
-        `
-          :host {
-            --swiper-theme-color: #003d7e !important;
-            --swiper-pagination-bottom: 0px;
-          }
-          .swiper-button-prev.disabled,
-          .swiper-button-next.disabled {
-            color: gray;
-            cursor: not-allowed;
-          }
-        `,
-      ],
     };
 
     const params = { ...defaultParams, ...swiperParams };
@@ -87,7 +74,10 @@ export const SwiperWrapper: React.FC<
   return (
     <>
       {/* @ts-ignore */}
-      <swiper-container ref={swiperRef} init={false} {...rest}>
+      <swiper-container style={{
+          '--swiper-theme-color': '#003d7e',
+          '--swiper-pagination-bottom': '0px'
+        }} ref={swiperRef} init={false} {...rest}>
         {children}
       {/* @ts-ignore */}
       </swiper-container>
