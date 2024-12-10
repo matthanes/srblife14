@@ -191,6 +191,7 @@ const NewNavbar: React.FC = () => {
             </div>
           </div>
           <Transition
+            as='div'
             show={openMobileNav}
             enter='transition-opacity duration-300'
             enterFrom='opacity-0'
