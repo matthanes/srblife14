@@ -63,7 +63,7 @@ export default function OurPurpose() {
                 ${ministry.leader_email}
               </a>
             </h3>
-            ${ministry.description}
+            <p>${ministry.description}</p>
           `}
           key={ministry.id}
           reverse={Boolean(index % 2)} // alternate the reverse prop
