@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@directus/sdk": "^18.0.1",
+    "@directus/visual-editing": "^1.0.1",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/google-calendar": "^6.1.15",

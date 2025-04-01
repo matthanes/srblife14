@@ -68,6 +68,7 @@ export const getSinglePost = async (slug: string) => {
       query: `query {
           blog_posts (filter: {slug: {_eq: "${slug}"}})
           {
+            id
             title
             description
             post

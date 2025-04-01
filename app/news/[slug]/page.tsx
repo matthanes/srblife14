@@ -3,6 +3,7 @@ import SocialShare from '../components/SocialShare';
 import AuthorAttribution from '../components/AuthorAttribution';
 import parse from 'html-react-parser';
 import { getAllPublished, getSinglePost } from '@/utils';
+import PostTitle from './_components/PostTitle';
 
 type BlogPostProps = {
   params: Promise<{
@@ -63,7 +64,7 @@ const BlogPost = async (props: BlogPostProps) => {
       <article className='min-h-screen-nav p-4'>
         <div className='w-full bg-white px-6 py-12 shadow-xl shadow-slate-700/10 ring-1 ring-gray-900/5 md:mx-auto md:max-w-3xl lg:max-w-4xl lg:pb-28 lg:pt-16'>
           <div className='prose prose-stone mx-auto lg:prose-xl prose-h1:text-secondary prose-a:text-primary'>
-            <h1 className='!text-4xl'>{title}</h1>
+            <PostTitle post={singlePost} />
             <div className='mb-4 flex items-center justify-between border-y-2 border-secondary py-3'>
               <span className='font-bold'>{formattedDate}</span>
               <AuthorAttribution author={author} />
