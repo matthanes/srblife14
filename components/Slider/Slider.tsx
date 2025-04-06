@@ -1,129 +1,276 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import imgSrcSet from '@/utils/srcset';
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
-type Slide = {
-  url?: string | null;
-  ariaLabelText?: string | null;
-  title?: string | null;
-  subtitle?: string | null;
-  alt?: string | null;
-  objectPosition?: string | null;
-  imgLink?: string | null;
-  opacity: number | null;
-};
+interface Slide {
+  url: string;
+  ariaLabelText?: string;
+  title: string;
+  alt: string;
+  imgLink: string;
+  opacity: number;
+  objectPosition: string;
+}
 
-type SliderProps = {
+interface SliderProps {
   slides: Slide[];
-  timing: number;
-  children?: React.ReactNode;
-};
+  timing?: number;
+}
 
-const Slider = ({ slides, timing, children }: SliderProps) => {
-  const timerRef = useRef<null | number>(null);
+export default function Slider({
+  slides,
+  timing = 6000,
+}: SliderProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const liveRegionRef = useRef<HTMLDivElement>(null);
+  const mouseOverRef = useRef(false);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isManualChange, setIsManualChange] = useState(false);
+  // If they prefer reduced motion, we will disable animations
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
 
-  const goToLeft = () => {
-    setIsManualChange(true);
-    setCurrentSlide(currentSlide > 0 ? currentSlide - 1 : slides.length - 1);
+    const handleChange = (event: MediaQueryListEvent) => {
+      setReducedMotion(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const clearAutoAdvanceTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
   };
 
-  const goToRight = () => {
-    setIsManualChange(true);
-    setCurrentSlide(currentSlide < slides.length - 1 ? currentSlide + 1 : 0);
+  const startAutoAdvanceTimer = () => {
+    clearAutoAdvanceTimer();
+    if (!reducedMotion && slides.length > 1 && !mouseOverRef.current) {
+      timerRef.current = setTimeout(() => {
+        const newIndex = (currentIndex + 1) % slides.length;
+        setCurrentIndex(newIndex);
+        // Announce slide change to screen readers
+        if (liveRegionRef.current) {
+          liveRegionRef.current.textContent = `Showing slide ${newIndex + 1} of ${slides.length}`;
+        }
+        if (!reducedMotion) setIsAnimating(true);
+      }, timing);
+    }
   };
 
   useEffect(() => {
-    if (isManualChange) {
-      if (timerRef.current !== null) {
-        window.clearInterval(timerRef.current);
-      }
-    } else {
-      timerRef.current = window.setInterval(() => {
-        setCurrentSlide(
-          currentSlide < slides.length - 1 ? currentSlide + 1 : 0,
-        );
-      }, timing);
-    }
+    startAutoAdvanceTimer();
+    return clearAutoAdvanceTimer;
+  }, [currentIndex, slides.length, timing, reducedMotion]);
 
-    return () => {
-      if (timerRef.current !== null) {
-        window.clearInterval(timerRef.current);
-      }
-    };
-  }, [currentSlide, isManualChange, slides, timing]);
+  useEffect(() => {
+    if (mouseOverRef.current) {
+      clearAutoAdvanceTimer();
+    } else {
+      startAutoAdvanceTimer();
+    }
+  }, [mouseOverRef.current]);
+
+  const goToSlide = (index: number) => {
+    if (isAnimating || index === currentIndex) return;
+    clearAutoAdvanceTimer();
+    if (!reducedMotion) setIsAnimating(true);
+    setCurrentIndex(index);
+
+    if (liveRegionRef.current) {
+      liveRegionRef.current.textContent = `Showing slide ${index + 1} of ${slides.length}`;
+    }
+  };
+
+  const nextSlide = () => {
+    if (slides.length <= 1) return;
+    const newIndex = (currentIndex + 1) % slides.length;
+    goToSlide(newIndex);
+  };
+
+  const prevSlide = () => {
+    if (slides.length <= 1) return;
+    const newIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+    goToSlide(newIndex);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+    }
+  };
+
+  useEffect(() => {
+    if (isAnimating) {
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 500); // Match with CSS transition duration
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAnimating]);
+
+  if (slides.length === 0) {
+    return null;
+  }
 
   return (
-    <div className='lg:min-h-screen-nav relative min-h-[35vh] sm:min-h-[50vh] md:min-h-[75vh]'>
-      {/* Image */}
-      {slides.map((slide, index) => (
-        <img
-          fetchPriority='high'
-          src={slide.imgLink || ''}
-          key={index}
-          alt={slide.alt || ''}
-          className={`absolute inset-0 z-0 h-full w-full object-cover ${
-            slide.objectPosition
-          } ${
-            index === currentSlide ? 'opacity-1' : 'opacity-0'
-          } transition-all duration-1000 ease-in-out`}
-          sizes='100vw'
-          srcSet={imgSrcSet(slide.imgLink)}
-        />
-      ))}
+    <div
+      ref={sliderRef}
+      className='relative aspect-[16/9] max-h-screen-nav w-full overflow-hidden'
+      role='region'
+      aria-roledescription='carousel'
+      aria-label='Image slider'
+      tabIndex={-1}
+      onKeyDown={handleKeyDown}
+      onMouseEnter={() => {
+        mouseOverRef.current = true;
+      }}
+      onMouseLeave={() => {
+        mouseOverRef.current = false;
+      }}
+      // Match the transition timing with the useEffect timing above
+      style={{
+        transition: reducedMotion ? 'none' : 'transform 0.5s ease-in-out',
+      }}
+    >
+      <a
+        href='#slider-controls'
+        className='sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-2 focus:text-black'
+      >
+        Skip to slider controls
+      </a>
 
-      {/* Overlay */}
-      {slides[currentSlide].url ? (
-        <a
-          href={slides[currentSlide].url || '#'}
-          aria-label={slides[currentSlide].ariaLabelText || ''}
-          className={`absolute left-1/2 top-0 h-full w-[80vw] -translate-x-1/2 bg-black opacity-${slides[currentSlide].opacity}`}
-        />
-      ) : (
-        <div
-          className={`absolute left-0 top-0 h-full w-full bg-black opacity-${slides[currentSlide].opacity}`}
-        ></div>
-      )}
-      {children}
+      <div
+        ref={liveRegionRef}
+        className='sr-only'
+        aria-live='polite'
+        aria-atomic='true'
+      >
+        Showing slide {currentIndex + 1} of {slides.length}
+      </div>
+
+      <div
+        className='absolute flex h-full w-full'
+        style={{
+          width: `${slides.length * 100}%`,
+          transform: `translateX(-${currentIndex * (100 / slides.length)}%)`,
+          transition: reducedMotion ? 'none' : 'transform 0.5s ease-in-out',
+        }}
+      >
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className='relative'
+            style={{ width: `${100 / slides.length}%` }}
+            aria-hidden={index !== currentIndex}
+          >
+            <img
+              src={slide.imgLink}
+              alt={slide.alt}
+              className={`absolute inset-0 h-full w-full object-cover ${slide.objectPosition}`}
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+
+            <div
+              className='absolute inset-0'
+              style={{ backgroundColor: `rgba(0, 0, 0, ${slide.opacity})` }}
+            >
+              {slide.url ? (
+                <Link
+                  href={slide.url}
+                  aria-label={slide.ariaLabelText || slide.title}
+                  className='flex h-full w-full flex-col items-center justify-center p-4 text-center text-white'
+                  tabIndex={index === currentIndex ? 0 : -1}
+                >
+                  {slide.title && slide.opacity !== 0 && <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
+                    {slide.title}
+                  </h2>}
+                </Link>
+              ) : (
+                <div className='flex h-full w-full flex-col items-center justify-center p-4 text-center text-white'>
+                  <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
+                    {slide.title}
+                  </h2>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
 
       {slides.length > 1 && (
-        <>
-          {/* Arrows */}
+        <div id='slider-controls'>
+          {/* Navigation Arrows */}
           <button
-            className='z-1 absolute left-4 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:left-8 md:h-16 md:w-16 md:text-3xl'
-            onClick={goToLeft}
+            className='absolute left-8 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-1 text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2'
+            onClick={prevSlide}
+            aria-label='Previous slide'
           >
-            ˂
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <polyline points='15 18 9 12 15 6'></polyline>
+            </svg>
           </button>
           <button
-            className='z-1 absolute right-4 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer select-none text-center text-xl text-white md:right-8 md:h-16 md:w-16 md:text-3xl'
-            onClick={goToRight}
+            className='absolute right-8 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-1 text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2'
+            onClick={nextSlide}
+            aria-label='Next slide'
           >
-            ˃
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <polyline points='9 18 15 12 9 6'></polyline>
+            </svg>
           </button>
 
           {/* Indicator Dots */}
-          <div className='cover absolute bottom-0 flex w-full justify-center'>
-            {slides.map((slide, index) => (
-              <div
-                key={slide.title}
-                className={`m-1 h-3 w-3 cursor-pointer rounded-full lg:m-1 lg:h-4 lg:w-4 ${
-                  currentSlide === index ? 'bg-white' : 'bg-gray-400'
-                }`}
-                onClick={() => {
-                  setIsManualChange(true);
-                  setCurrentSlide(index);
-                }}
-              ></div>
+          <div
+            className='absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 space-x-2'
+            role='tablist'
+            aria-label='Select a slide to show'
+          >
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`h-3 w-3 rounded-full ${
+                  index === currentIndex ? 'bg-white' : 'bg-white bg-opacity-50'
+                } transition-opacity hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-selected={index === currentIndex}
+                role='tab'
+              />
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
-};
-
-export default Slider;
+}
