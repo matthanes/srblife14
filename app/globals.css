@@ -1,6 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #003d7e;
+  --color-secondary: #7b9ea8;
+  --color-dark: #2d2d2d;
+
+  --font-rock-salt: 'Rock Salt', cursive;
+  --font-headings: 'Roboto', sans-serif;
+  --font-bodytext: 'Poppins', sans-serif;
+
+  --aspect-slide: 16 / 7;
+
+  --max-height-screen-nav: calc(100vh - 4rem);
+
+  --min-height-screen-nav: calc(100vh - 4rem);
+
+  --background-image-map: url('../public/img/missions.jpg');
+  --background-image-church: url('../public/img/church.jpg');
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
 /* 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -26,8 +63,6 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
 }

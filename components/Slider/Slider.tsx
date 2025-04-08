@@ -18,10 +18,7 @@ interface SliderProps {
   timing?: number;
 }
 
-export default function Slider({
-  slides,
-  timing = 6000,
-}: SliderProps) {
+export default function Slider({ slides, timing = 6000 }: SliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -126,7 +123,7 @@ export default function Slider({
   return (
     <div
       ref={sliderRef}
-      className='relative aspect-[16/9] max-h-screen-nav w-full overflow-hidden'
+      className='max-h-screen-nav relative aspect-16/9 w-full overflow-hidden'
       role='region'
       aria-roledescription='carousel'
       aria-label='Image slider'
@@ -192,15 +189,19 @@ export default function Slider({
                   className='flex h-full w-full flex-col items-center justify-center p-4 text-center text-white'
                   tabIndex={index === currentIndex ? 0 : -1}
                 >
-                  {slide.title && slide.opacity !== 0 && <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
-                    {slide.title}
-                  </h2>}
+                  {slide.title && slide.opacity !== 0 && (
+                    <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
+                      {slide.title}
+                    </h2>
+                  )}
                 </Link>
               ) : (
                 <div className='flex h-full w-full flex-col items-center justify-center p-4 text-center text-white'>
-                  <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
-                    {slide.title}
-                  </h2>
+                  {slide.title && slide.opacity !== 0 && (
+                    <h2 className='mb-4 text-4xl font-bold md:text-5xl lg:text-6xl'>
+                      {slide.title}
+                    </h2>
+                  )}
                 </div>
               )}
             </div>
@@ -212,7 +213,7 @@ export default function Slider({
         <div id='slider-controls'>
           {/* Navigation Arrows */}
           <button
-            className='absolute left-8 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-1 text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2'
+            className='bg-opacity-50 hover:bg-opacity-70 absolute top-1/2 left-8 z-10 -translate-y-1/2 rounded-full bg-black p-1 text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-hidden'
             onClick={prevSlide}
             aria-label='Previous slide'
           >
@@ -231,7 +232,7 @@ export default function Slider({
             </svg>
           </button>
           <button
-            className='absolute right-8 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black bg-opacity-50 p-1 text-white hover:bg-opacity-70 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2'
+            className='bg-opacity-50 hover:bg-opacity-70 absolute top-1/2 right-8 z-10 -translate-y-1/2 rounded-full bg-black p-1 text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:outline-hidden'
             onClick={nextSlide}
             aria-label='Next slide'
           >
@@ -260,8 +261,8 @@ export default function Slider({
               <button
                 key={index}
                 className={`h-3 w-3 rounded-full ${
-                  index === currentIndex ? 'bg-white' : 'bg-white bg-opacity-50'
-                } transition-opacity hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1`}
+                  index === currentIndex ? 'bg-white' : 'bg-opacity-50 bg-white'
+                } hover:bg-opacity-75 transition-opacity focus:ring-2 focus:ring-white focus:ring-offset-1 focus:outline-hidden`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
                 aria-selected={index === currentIndex}

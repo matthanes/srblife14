@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Salvation() {
   return (
-    <div className='bg-church bg-cover bg-fixed bg-bottom'>
-      <div className='bg-black bg-opacity-60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
+    <div className='bg-[url("/img/church.jpg")] bg-cover bg-fixed bg-bottom'>
+      <div className='bg-black/60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
         <p className='px-6 text-4xl leading-[3.5rem]'>
           “16 For this is how God loved the world: He gave his one and only Son,
           so that everyone who believes in him will not perish but have eternal
@@ -33,7 +33,7 @@ export default function Salvation() {
           Let’s look at what God says in His Word.
         </p>
       </div>
-      <div className='bg-black bg-opacity-60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
+      <div className='bg-black/60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
         <p className='px-6 text-4xl leading-[3.5rem]'>
           There is none righteous, no, not one.
         </p>
@@ -56,7 +56,7 @@ export default function Salvation() {
           fulfill His promise to freely give believers eternal life.
         </p>
       </div>
-      <div className='bg-black bg-opacity-60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
+      <div className='bg-black/60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
         <p className='px-6 text-4xl leading-[3.5rem]'>
           He who believes in Me has everlasting life.
         </p>
@@ -86,7 +86,7 @@ export default function Salvation() {
           believer has God’s life, which is unending and full of potential.
         </p>
       </div>
-      <div className='bg-black bg-opacity-60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
+      <div className='bg-black/60 py-16 text-center font-headings text-white sm:px-16 md:px-20 lg:px-64'>
         <p className='px-6 text-4xl leading-[3.5rem]'>
           &ldquo;I am the resurrection and the life. He who believes in Me, though he
           may die, he shall live. And whoever lives and believes in Me shall

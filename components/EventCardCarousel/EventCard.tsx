@@ -30,14 +30,14 @@ const EventCard: React.FC<EventCardProps> = ({event}) => {
       <div className="rounded-t-lg border-b-2 border-secondary border-opacity-50 bg-primary px-6 py-3 text-lg text-white">
         {category}
       </div>
-      <div className="flex flex-grow flex-col p-6">
+      <div className="flex grow flex-col p-6">
         <h3 className="mb-2 text-xl font-medium leading-tight text-neutral-800">
           {title}
         </h3>
         <p className="mb-4 text-base text-neutral-600">{short_description}</p>
         {button_link && button_text && (
           <Link
-            className="content mx-auto mt-auto w-fit rounded-lg border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-5 text-white duration-150 hover:bg-opacity-90 focus-visible:outline-none focus-visible:ring focus-visible:ring-secondary"
+            className="content mx-auto mt-auto w-fit rounded-lg border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-5 text-white duration-150 hover:bg-opacity-90 focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-secondary"
             href={button_link}
           >
             {button_text}

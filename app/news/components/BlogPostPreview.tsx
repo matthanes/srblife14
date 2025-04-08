@@ -18,14 +18,14 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
   });
   return (
     <section className='flex flex-col items-center overflow-hidden px-4 lg:px-0'>
-      <div className='m-4 w-full max-w-4xl rounded-lg bg-slate-100 px-10 py-6 shadow-sm sm:mx-0'>
+      <div className='m-4 w-full max-w-4xl rounded-lg bg-slate-100 px-10 py-6 shadow-xs sm:mx-0'>
         <div className='flex flex-col items-center justify-between sm:flex-row'>
           <span className='mb-4 sm:mb-0'>{formattedDate}</span>
           <TagsList tags={tags} />
         </div>
         <div className='mt-3 flex flex-col items-center sm:block'>
           <Link
-            className='text-xl font-bold text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary'
+            className='text-xl font-bold text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary'
             href={`/news/${slug}`}
           >
             {title}
@@ -36,7 +36,7 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({ post }) => {
         </div>
         <div className='mx-auto mt-4 flex flex-col items-center sm:flex-row sm:items-center sm:justify-between'>
           <Link
-            className='mb-4 font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary'
+            className='mb-4 font-semibold text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary'
             href={`/news/${slug}`}
           >
             Read More

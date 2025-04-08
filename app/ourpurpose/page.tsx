@@ -66,7 +66,7 @@ export default function OurPurpose() {
       </div>
       <div className="bg-map bg-fixed bg-cover bg-center h-72">
         <div className="flex items-center bg-primary bg-opacity-60 h-full w-full text-white">
-          <div className="flex-grow text-center text-6xl font-headings">
+          <div className="grow text-center text-6xl font-headings">
             <div>Our Mission:</div>
             <div className="mt-6">Missions</div>
           </div>

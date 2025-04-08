@@ -53,7 +53,7 @@ const NewNavbar: React.FC = () => {
                   onClick={() =>
                     setOpenMobileNav((openMobileNav) => !openMobileNav)
                   }
-                  className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white'
+                  className='relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:text-white focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white'
                 >
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
@@ -65,7 +65,7 @@ const NewNavbar: React.FC = () => {
                 </Disclosure.Button>
               </div>
               <div className='flex flex-1 items-center justify-center md:justify-between'>
-                <div className='flex flex-shrink-0 items-center'>
+                <div className='flex shrink-0 items-center'>
                   <Logo />
                 </div>
                 <div className='hidden md:ml-6 md:block'>
@@ -112,7 +112,7 @@ const NewNavbar: React.FC = () => {
                                   leaveFrom='transform scale-100 opacity-100'
                                   leaveTo='transform scale-95 opacity-0'
                                 >
-                                  <Disclosure.Panel className='absolute left-0 z-[1] mt-2 w-56 rounded-md bg-primary shadow-lg ring-1 ring-black ring-opacity-5'>
+                                  <Disclosure.Panel className='absolute left-0 z-1 mt-2 w-56 rounded-md bg-primary shadow-lg ring-1 ring-black ring-opacity-5'>
                                     <div
                                       className='flex flex-col gap-4 px-4 py-1'
                                       role='menu'

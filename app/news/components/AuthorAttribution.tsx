@@ -30,7 +30,7 @@ const AuthorAttribution: React.FC<AuthorAttributionProps> = ({ author }) => {
       </Link>
       <Link
         href={`/news/author/${author.name.toLowerCase().replace(/\s+/g, '_')}`}
-        className='font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary'
+        className='font-semibold text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary'
       >
         {author.name}
       </Link>

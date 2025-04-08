@@ -59,7 +59,7 @@ export default function OurPurpose() {
           body={`
             <h3 class="mb-6 text-xl leading-8">
               Ministry Leader: ${ministry.leader} <br />
-              Contact: <a class="mb-4 text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary" href="mailto:${ministry.leader_email}">
+              Contact: <a class="mb-4 text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary" href="mailto:${ministry.leader_email}">
                 ${ministry.leader_email}
               </a>
             </h3>

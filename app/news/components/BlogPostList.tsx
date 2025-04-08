@@ -67,7 +67,7 @@ const BlogPostList: React.FC<BlogPostListProps> = ({ blog_posts }) => {
       <div className='mx-auto w-full'>
         <div className='flex justify-center'>
           <input
-            className='mx-4 w-full max-w-4xl rounded-lg border-2 border-primary px-4 py-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary'
+            className='mx-4 w-full max-w-4xl rounded-lg border-2 border-primary px-4 py-2 focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-secondary'
             type='text'
             placeholder='Search'
             value={search}
@@ -110,7 +110,7 @@ const BlogPostList: React.FC<BlogPostListProps> = ({ blog_posts }) => {
         {Array.from({ length: total_pages }, (_, i) => (
           <button
             key={i}
-            className={`mx-1 px-4 py-2 font-black text-primary outline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary ${
+            className={`mx-1 px-4 py-2 font-black text-primary outline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary ${
               page === i + 1 ? 'text-secondary' : ''
             }`}
             onClick={() => handlePageChange(i + 1)}

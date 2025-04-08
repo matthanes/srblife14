@@ -27,10 +27,10 @@ const SplitScreen: React.FC<SplitScreenProps> = ({
   const parsedBody = parse(body, {
     replace: (domNode) => {
       if (domNode.type === 'tag' && domNode.name === 'a') {
-        // check existing classnames and add these classNames if not present "text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary".
+        // check existing classnames and add these classNames if not present "text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary".
         domNode.attribs.class = classNames(
           domNode.attribs.class,
-          'text-primary hover:underline focus-visible:outline-none focus-visible:ring focus-visible:ring-primary',
+          'text-primary hover:underline focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-primary',
         );
         // Remove duplicate classnames
         domNode.attribs.class = domNode.attribs.class
@@ -44,7 +44,7 @@ const SplitScreen: React.FC<SplitScreenProps> = ({
   });
   return (
     <div className={classes}>
-      <div className='flex bg-gradient-to-br from-primary to-indigo-600 xl:basis-1/2'>
+      <div className='flex bg-linear-to-br from-primary to-indigo-600 xl:basis-1/2'>
         <img
           className='min-h-1/3 min-w-full object-cover'
           src={img}
