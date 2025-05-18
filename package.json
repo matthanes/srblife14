@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "DEBUG_COLORS=1 next dev --turbopack",
     "build": "next build",
     "start": "npx serve@latest out",
     "lint": "next lint",
-    "clean": "rm -rf .next"
+    "clean": "rm -rf .next",
+    "deploy:stage": "aws s3 sync ./out s3://staging.srblife.com"
   },
   "dependencies": {
     "@directus/sdk": "^18.0.1",

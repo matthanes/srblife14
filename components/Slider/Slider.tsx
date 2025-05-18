@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 
 interface Slide {
@@ -47,7 +47,7 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
     }
   };
 
-  const startAutoAdvanceTimer = () => {
+  const startAutoAdvanceTimer = useCallback(() => {
     clearAutoAdvanceTimer();
     if (!reducedMotion && slides.length > 1 && !mouseOverRef.current) {
       timerRef.current = setTimeout(() => {
@@ -60,20 +60,18 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
         if (!reducedMotion) setIsAnimating(true);
       }, timing);
     }
-  };
+  }, [currentIndex, slides.length, timing, reducedMotion]);
 
   useEffect(() => {
     startAutoAdvanceTimer();
     return clearAutoAdvanceTimer;
-  }, [currentIndex, slides.length, timing, reducedMotion]);
-
-  useEffect(() => {
-    if (mouseOverRef.current) {
-      clearAutoAdvanceTimer();
-    } else {
-      startAutoAdvanceTimer();
-    }
-  }, [mouseOverRef.current]);
+  }, [
+    currentIndex,
+    slides.length,
+    timing,
+    reducedMotion,
+    startAutoAdvanceTimer,
+  ]);
 
   const goToSlide = (index: number) => {
     if (isAnimating || index === currentIndex) return;
@@ -131,9 +129,11 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
       onKeyDown={handleKeyDown}
       onMouseEnter={() => {
         mouseOverRef.current = true;
+        clearAutoAdvanceTimer();
       }}
       onMouseLeave={() => {
         mouseOverRef.current = false;
+        startAutoAdvanceTimer();
       }}
       // Match the transition timing with the useEffect timing above
       style={{

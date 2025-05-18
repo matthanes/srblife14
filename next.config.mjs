@@ -5,6 +5,12 @@ const nextConfig = {
   images: {
     domains: ['srblog.srblife.com'],
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
 };
 
 export default nextConfig;

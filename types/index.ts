@@ -25,7 +25,7 @@ export type Author = {
 export type AllAuthors = {
   data: {
     authors: Author[];
-  }
+  };
 };
 
 export type Tag = {
@@ -132,4 +132,37 @@ export type AllMinistries = {
   data: {
     ministries: Ministry[];
   };
+};
+
+export type Homecard = {
+  id: string;
+  title?: string | null;
+  subtitle?: string | null;
+  icon?: string | null;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  rel?: string | null;
+  tag?: 'a' | 'div' | 'Link';
+  href?: string | null;
+};
+
+export type HomecardSection = {
+  id: string;
+  status: string;
+  sort?: number | null;
+  homecard: Homecard[];
+};
+
+export type SRBPageSection = {
+  id: string;
+  sort?: number | null;
+  collection: 'homecards' | 'ministries' | 'split_screens';
+  item: HomecardSection | SplitScreen | Ministry;
+};
+
+export type SRBPage = {
+  id: string;
+  sort?: number | null;
+  slug: string;
+  status?: string | null;
+  srb_pages_sections: SRBPageSection[];
 };

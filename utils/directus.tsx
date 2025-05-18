@@ -11,6 +11,7 @@ import {
   DirectusFile,
   DirectusSchema,
   Post,
+  SRBPage,
   Tag,
 } from '@/types';
 
@@ -393,4 +394,51 @@ export const getMinistries = async () => {
   const data: AllMinistries = await ministries.json();
 
   return data;
+};
+
+export const getPage = async () => {
+  const query_filter =
+    process.env.NODE_ENV === 'development'
+      ? `limit: -1, filter: { _or: [
+      { status: { _eq: "published" } },
+      { status: { _eq: "draft" } }
+      ] },
+      sort: [ "sort" ]`
+      : `limit: -1, filter: { status: { _eq: "published" } }, sort: [ "sort" ]`;
+  const pages = await fetch('https://srblog.srblife.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + process.env.DIRECTUS_TOKEN,
+    },
+    body: JSON.stringify({
+      query: `
+      query {
+        srb_pages (${query_filter})
+        {
+          id
+          sort
+          status
+          slug
+          srb_pages_sections {
+            id
+            collection
+            item {
+            ... on homecards {
+              id
+              status
+              sort
+              homecard
+            }
+          }
+        }
+      }
+    }
+   `,
+    }),
+  });
+
+  const data = await pages.json();
+
+  return data.data.srb_pages as SRBPage[];
 };
