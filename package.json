@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@directus/sdk": "^18.0.1",
+    "@directus/visual-editing": "^1.1.0",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/google-calendar": "^6.1.15",
@@ -26,7 +27,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "^5.4.0",
-    "react-share": "^5.1.1",
+    "react-share": "^5.2.2",
     "swiper": "^11.1.15"
   },
   "devDependencies": {
