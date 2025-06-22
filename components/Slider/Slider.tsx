@@ -253,7 +253,7 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
 
           {/* Indicator Dots */}
           <div
-            className='absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 space-x-2'
+            className='absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 space-x-2 rounded-full bg-black/50 p-2'
             role='tablist'
             aria-label='Select a slide to show'
           >
@@ -261,8 +261,8 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
               <button
                 key={index}
                 className={`h-3 w-3 rounded-full ${
-                  index === currentIndex ? 'bg-white' : 'bg-opacity-50 bg-white'
-                } hover:bg-opacity-75 transition-opacity focus:ring-2 focus:ring-white focus:ring-offset-1 focus:outline-hidden`}
+                  index === currentIndex ? 'bg-gray-200' : 'bg-white/50'
+                } hover:transition-opacity focus:ring-2 focus:ring-white focus:ring-offset-1 focus:outline-hidden`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
                 aria-selected={index === currentIndex}
