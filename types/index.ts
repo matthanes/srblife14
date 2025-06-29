@@ -83,6 +83,8 @@ export type Announcement = {
   link_label?: string;
   slide_link?: string;
   end_date?: string;
+  object_fit?: 'cover' | 'contain' | null;
+  slide_background?: string | null;
   slide: {
     filename_disk: string;
   };

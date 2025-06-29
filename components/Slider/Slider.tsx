@@ -5,12 +5,14 @@ import Link from 'next/link';
 
 interface Slide {
   url: string;
-  ariaLabelText?: string;
   title: string;
   alt: string;
   imgLink: string;
   opacity: number;
   objectPosition: string;
+  ariaLabelText?: string;
+  objectFit?: string | null;
+  slideBackgroundColor?: string | null;
 }
 
 interface SliderProps {
@@ -174,7 +176,7 @@ export default function Slider({ slides, timing = 6000 }: SliderProps) {
             <img
               src={slide.imgLink}
               alt={slide.alt}
-              className={`absolute inset-0 h-full w-full object-cover ${slide.objectPosition}`}
+              className={`absolute inset-0 h-full w-full ${slide.objectFit === 'cover' ? 'object-cover' : 'object-contain'} ${slide.objectPosition}`}
               loading={index === 0 ? 'eager' : 'lazy'}
             />
 

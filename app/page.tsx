@@ -39,6 +39,8 @@ const slides = announcements
       imgLink:
         'https://srblog.srblife.com/assets/' + announcement.slide.filename_disk,
       opacity: 0,
+      objectFit: announcement.object_fit || 'cover',
+      slideBackgroundColor: announcement.slide_background || '#ffffff',
       objectPosition: 'object-center',
     };
   });

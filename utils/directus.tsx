@@ -295,6 +295,8 @@ export const getAnnouncements = async () => {
           sort
           title
           alt_text
+          object_fit
+          slide_background
           status
           link_label
           slide_link
